@@ -3,7 +3,6 @@ const app = express();
 const port = 3000;
 const axios = require("axios");
 const fs = require("fs");
-const util = require("util");
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
@@ -11,7 +10,7 @@ app.use(express.static("data"));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-//https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt
+
 //BHBM3
 
 // Line 1 - Headers
@@ -45,20 +44,24 @@ function parseBuoyData(data) {
   return JSON.stringify(jsonResults);
 }
 
-function callback() {
-  console.log("It worked!");
-}
+const dataURL = 'https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt';
+const oneDay = 1000 * 60 * 60 * 24;
 
-axios
-  .get(`http://localhost:${port}/example.txt`)
+setTimeout(function () {
+  axios
+  .get(dataURL)
   .then(function(response) {
     fs.writeFile(
       "data/buoy.json",
       parseBuoyData(response.data.toString()),
-      "utf8",
-      callback
+      (err) => {
+        if (err) throw new Error(err);
+        console.log('File written successfully');
+      }
     );
   })
   .catch(function(err) {
     console.log("There was an error with the request: ", err);
-  });
+  });  
+}, 10000);
+
