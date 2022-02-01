@@ -1,71 +1,51 @@
 import React, { useMemo } from "react";
 import { connect } from "react-redux";
-import { useTable } from "react-table";
 
 import "./Table.scss";
 
-const Table = ({ weatherData }) => {
-  const data = useMemo(() => weatherData, []);
-
-  const columns = useMemo(
-    () => [
-      { Header: "APD", accessor: "APD" },
-      { Header: "ATMP", accessor: "ATMP" },
-      { Header: "Dew Point", accessor: "DEWP" },
-      { Header: "DPD", accessor: "DPD" },
-      { Header: "GST", accessor: "GST" },
-      { Header: "Latitude", accessor: "LAT" },
-      { Header: "Longitude", accessor: "LON" },
-      { Header: "MWD", accessor: "MWD" },
-      { Header: "PRES", accessor: "PRES" },
-      { Header: "PTDY", accessor: "PTDY" },
-      { Header: "Station", accessor: "STN" },
-      { Header: "Tide", accessor: "TIDE" },
-      { Header: "Visibility", accessor: "VIS" },
-      { Header: "Wind Direction", accessor: "WDIR" },
-      { Header: "Wind Speed", accessor: "WSPD" },
-      { Header: "WTMP", accessor: "WTMP" },
-      { Header: "WVHT", accessor: "WVHT" },
-      { Header: "Year", accessor: "YYYY" },
-      { Header: "Month", accessor: "MM" },
-      { Header: "Day", accessor: "DD" },
-      { Header: "Hour", accessor: "hh" },
-      { Header: "Minute", accessor: "mm" },
-    ],
-    []
-  );
-
-  const tableInstance = useTable({ columns, data });
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
-
+const Table = ({ data }) => {
   return (
     <>
       <h2>Table</h2>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
+      <table>
+        <tbody>
+          {data.map((rowData) => (
+            <tr key={rowData.STN}>
+              <td>
+                <a
+                  href={`https://www.ndbc.noaa.gov/buoycam.php?station=${rowData.STN}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {rowData.STN}
+                </a>
+              </td>
+              <td>
+                <a
+                  href={`https://www.google.com/maps/@${rowData.LAT},${rowData.LON},7z`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {`${rowData.LAT},${rowData.LON}`}
+                </a>
+              </td>
+              <td>{`${rowData.MM}/${rowData.DD}/${rowData.YYYY} ${rowData.hh}:${rowData.mm}`}</td>
+              <td>{rowData.WDIR}</td>
+              <td>{rowData.WSPD}</td>
+              <td>{rowData.GST}</td>
+              <td>{rowData.WVHT}</td>
+              <td>{rowData.DPD}</td>
+              <td>{rowData.APD}</td>
+              <td>{rowData.MWD}</td>
+              <td>{rowData.PRES}</td>
+              <td>{rowData.PTDY}</td>
+              <td>{rowData.ATMP}</td>
+              <td>{rowData.WTMP}</td>
+              <td>{rowData.DEWP}</td>
+              <td>{rowData.VIS}</td>
+              <td>{rowData.TIDE}</td>
             </tr>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
         </tbody>
       </table>
     </>
@@ -74,7 +54,7 @@ const Table = ({ weatherData }) => {
 
 const mapStateToProps = (state) => {
   return {
-    weatherData: state.data,
+    data: state.data,
   };
 };
 
