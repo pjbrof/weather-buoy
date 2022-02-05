@@ -1,0 +1,14 @@
+.filters {
+  display: block;
+  border-spacing: 0;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: #fff;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 500px;
+  z-index: 999;
+  overflow-y: scroll;
+  color: #333;
+}

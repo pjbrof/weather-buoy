@@ -21,3 +21,7 @@
 ## Station Info
 
 [https://www.ndbc.noaa.gov/mobile/station.php?station=bhbm3](https://www.ndbc.noaa.gov/mobile/station.php?station=bhbm3)
+
+## Measurement Descriptions and Units
+
+[https://www.ndbc.noaa.gov/measdes.shtml](https://www.ndbc.noaa.gov/measdes.shtml)

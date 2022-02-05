@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
@@ -26,8 +27,24 @@ module.exports = {
         use: ["babel-loader"],
       },
       {
-        test: /\.(css|scss|sass)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: {
+                  "postcss-import": {},
+                  tailwindcss: {},
+                  "postcss-nested": {},
+                  autoprefixer: {},
+                },
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|mp4|ogg|svg)$/,
@@ -35,5 +52,8 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })],
+  plugins: [
+    new HtmlWebpackPlugin({ template: "./src/index.html" }),
+    new MiniCssExtractPlugin(),
+  ],
 };

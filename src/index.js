@@ -6,7 +6,11 @@ import configureStore from "./store";
 import App from "./components/App/App";
 import buoyData from "../data/buoy.json";
 
-const store = configureStore({ data: buoyData });
+const store = configureStore({
+  data: {
+    data: buoyData,
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>

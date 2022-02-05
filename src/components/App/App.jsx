@@ -1,13 +1,14 @@
 import React from "react";
-import Cam from "../Cam/Cam";
-import Table from "../Table/Table";
+import Map from "../Map/Map";
+import Filters from "../Filters/Filters";
+
+import "./App.css";
 
 const App = () => {
   return (
     <>
-      <h1>Weather Buoy</h1>
-      <Cam STN="41008" />
-      <Table />
+      <Map />
+      <Filters />
     </>
   );
 };
