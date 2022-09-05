@@ -1,4 +1,6 @@
-export default async function handler(request, response) {
+const axios = require("axios");
+
+export default async function handler(_request, response) {
   try {
     const res = await getBuoyData();
     return response.status(200).json({ body: res });
@@ -35,11 +37,11 @@ function parseBuoyData(data) {
     jsonResults.push(tempObj);
   });
 
-  return JSON.stringify(jsonResults);
+  return jsonResults;
 }
 
 async function getBuoyData() {
-  await axios
+  return await axios
     .get("https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt")
     .then(function (response) {
       return parseBuoyData(response.data.toString());
@@ -48,3 +50,7 @@ async function getBuoyData() {
       console.log("There was an error with the request: ", err);
     });
 }
+
+// module.exports = {
+//   getBuoyData,
+// };
