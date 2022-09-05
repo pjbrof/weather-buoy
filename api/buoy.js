@@ -1,9 +1,9 @@
 const axios = require("axios");
 
-export default async function handler(_request, response) {
+export default async function handler(request, response) {
   try {
-    const res = await getBuoyData();
-    return response.status(200).json({ body: res });
+    //const res = await getBuoyData();
+    return response.status(200).json({ body: "Hello vercel" });
   } catch (e) {
     return response.status(400);
   }
