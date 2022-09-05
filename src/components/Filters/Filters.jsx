@@ -2,12 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 
 import "./Filters.css";
-import { setFilters } from "../../actions/dataActions";
+import { setFilters } from "../../actions/filterActions";
 
 const Filters = ({ setFilters }) => {
+  // const handleWaterTemp = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.value);
+  // };
+
   return (
     <>
-      <div className="filters">
+      <div className="filters shadow border border-gray-200 bg-white">
         <div className="bg-white p-2 border-b border-gray-200 sm:px-4">
           <h3 className="text-lg leading-6 font-medium text-gray-900">
             Filters
@@ -37,6 +42,24 @@ const Filters = ({ setFilters }) => {
                 </span>
               </div>
             </div>
+            {/* <div>
+              <label
+                htmlFor="waterTemp"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Water Temperature
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                defaultValue="10"
+                step="1"
+                onChange={(e) => {
+                  handleWaterTemp(e);
+                }}
+              />
+            </div> */}
           </fieldset>
         </div>
       </div>
@@ -46,7 +69,7 @@ const Filters = ({ setFilters }) => {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.data,
+    filters: state.filters,
   };
 };
 

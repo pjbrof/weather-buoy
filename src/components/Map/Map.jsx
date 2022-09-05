@@ -10,33 +10,37 @@ const accessToken =
   "pk.eyJ1IjoicGpicm9mIiwiYSI6ImNqMjNvZDBraTAwMjMzMm81MWcxMjA4cjIifQ.-XXQyKK7bZW7Lg4dLJ3Suw";
 const buoyCAM = false;
 
-const Map = ({ data }) => {
+const filterUndefined = (buoy) => {
+  if (buoy.LAT === undefined) {
+    return false;
+  }
+  return true;
+};
+
+const filterBuoyCAM = (buoy) => {
+  return hasBuoyCam.some((cam) => {
+    return buoy.STN === cam;
+  });
+};
+
+const applyFilters = (filters = { undef: true, cam: true }, item) => {
+  if (filters.undef) {
+    console.log(item);
+    return filterUndefined(item);
+  }
+};
+
+const Map = ({ data, filters }) => {
   return (
     <>
       <MapContainer center={[40, -40]} zoom={3}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url={`https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=${accessToken}`}
+          url={`https://api.mapbox.com/styles/v1/pjbrof/ckzeqwsw9001014mrha37jqib/tiles/256/{z}/{x}/{y}?access_token=${accessToken}`}
         />
         {data.data
-          .filter((buoy) => {
-            if (
-              buoy.LAT === "LAT" ||
-              buoy.LAT === "deg" ||
-              buoy.LAT === undefined
-            ) {
-              return false;
-            }
-            return true;
-          })
-          .filter((buoy) => {
-            if (data.buoyCAM) {
-              return hasBuoyCam.some((cam) => {
-                return buoy.STN === cam;
-              });
-            }
-            return true;
-          })
+          .filter((buoy) => filterUndefined(buoy))
+          .filter((buoy) => filterBuoyCAM(buoy))
           .map((buoy) => {
             return (
               <Marker key={buoy.STN} position={[buoy.LAT, buoy.LON]}>
@@ -54,6 +58,7 @@ const Map = ({ data }) => {
 const mapStateToProps = (state) => {
   return {
     data: state.data,
+    filters: state.filters,
   };
 };
 

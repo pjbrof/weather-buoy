@@ -1,11 +1,15 @@
 import React from "react";
 
 const Wind = ({ direction, speed, gust }) => {
+  const knots = 1.94384449;
   return (
     <>
-      {direction !== "MM" && <span>Wind {direction}&deg; </span>}
-      {speed !== "MM" && <span>{speed}m/s </span>}
-      {gust !== "MM" && <span>({gust}m/s) </span>}
+      <i className="wi wi-strong-wind" />
+      {speed !== "MM" && (
+        <span className="pl-2">{(speed * knots).toFixed(1)}kts </span>
+      )}
+      {gust !== "MM" && <span>({(gust * knots).toFixed(1)}kts) </span>}
+      {direction !== "MM" && <span>{direction}&deg; </span>}
     </>
   );
 };
