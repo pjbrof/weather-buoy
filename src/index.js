@@ -8,11 +8,7 @@ import buoyData from "../data/buoy.json";
 
 const headers = buoyData.splice(0, 2);
 
-const store = configureStore({
-  data: {
-    data: buoyData,
-  },
-});
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

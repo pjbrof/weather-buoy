@@ -16,6 +16,13 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "public"),
     },
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+    },
+    historyApiFallback: true,
     compress: true,
     port: 8000,
   },
