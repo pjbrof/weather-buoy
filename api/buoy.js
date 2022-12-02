@@ -1,13 +1,13 @@
 const axios = require("axios");
 
-export default async function handler(request, response) {
-  try {
-    const data = await getBuoyData();
-    return response.status(200).json({ data });
-  } catch (e) {
-    return response.status(400);
-  }
-}
+// export default async function handler(request, response) {
+//   try {
+//     const data = await getBuoyData();
+//     return response.status(200).json({ data });
+//   } catch (e) {
+//     return response.status(400);
+//   }
+// }
 
 // Line 1 - Headers
 // Line 2 - Units
