@@ -25,3 +25,9 @@
 ## Measurement Descriptions and Units
 
 [https://www.ndbc.noaa.gov/measdes.shtml](https://www.ndbc.noaa.gov/measdes.shtml)
+
+## Ship Observation
+
+https://ndbc.noaa.gov/ship_obs.php
+
+https://www.ndbc.noaa.gov/ship_obs.php?uom=E&time=1
